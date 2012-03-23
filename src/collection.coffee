@@ -19,6 +19,11 @@ class exports.Collection
     @_in(element)
     @trigger("add", element)
     @trigger("change", @list)
+  insertAt: (index, element) ->
+    @list.splice(index, 0, element)
+    @_in(element)
+    @trigger("insert", index, element)
+    @trigger("change", @list)
   update: (list) ->
     @_notIn(element) for element in @list
     @list = list

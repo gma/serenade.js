@@ -65,6 +65,23 @@ describe 'Serenade.Collection', ->
       @collection.push('g')
       expect(@collection).toHaveReceivedEvent('add', with: ['g'])
 
+  describe '#insertAt', ->
+    it 'inserts the item at the start of the collection', ->
+      @collection.insertAt(0, 'd')
+      expect(@collection.get(0)).toEqual('d')
+      expect(@collection.get(1)).toEqual('a')
+    it 'inserts the item into middle of the collection', ->
+      @collection.insertAt(1, 'd')
+      expect(@collection.get(0)).toEqual('a')
+      expect(@collection.get(1)).toEqual('d')
+      expect(@collection.get(2)).toEqual('b')
+    it 'triggers a change event', ->
+      @collection.insertAt(1, 'd')
+      expect(@collection).toHaveReceivedEvent('change')
+    it 'triggers an insert event', ->
+      @collection.insertAt(1, 'd')
+      expect(@collection).toHaveReceivedEvent('insert')
+
   describe '#indexOf', ->
     it 'returns where in the collection the given item is', ->
       expect(@collection.indexOf('a')).toEqual(0)
